@@ -10,7 +10,7 @@ Basic = {
 	settings: {
 		fileName: './less/style.less',
 		sourceDir: '**/*.less',
-		destination: './less'
+		destination: './css'
 	},
 	init: function() {
 		s = this.settings;
