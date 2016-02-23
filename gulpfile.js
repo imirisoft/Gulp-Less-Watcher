@@ -4,6 +4,7 @@ var gulp = require('gulp'),
 	path = require('path'),
 	argv = require('yargs').argv,
 	watch = require('gulp-watch'),
+	colors = require('colors/safe'),
 	Basic, s;
 
 Basic = {
@@ -17,7 +18,7 @@ Basic = {
 	},
 	extend: function(default_opt,custom_opt) {
 		// Similar to jQuery extend
-		let i, opt = {};
+		var i, opt = {};
 		for(i in default_opt) {
 			if(i) {
 				opt[i] = (custom_opt[i])?custom_opt[i]:default_opt[i];
@@ -27,9 +28,15 @@ Basic = {
 	},
 	compile: function(opt) {
 		// fileName can have with directory structure
-	  return gulp.src(opt.fileName)
+		var execution_start_time, execution_end_time,
+			total_execution_in_ms;	// ms indicates microseconds
+		execution_start_time = new Date().getTime();
+	  gulp.src(opt.fileName)
 	  	.pipe(less())
 	  	.pipe(gulp.dest(opt.destination));
+	  	execution_end_time = new Date().getTime();
+	  	total_execution_in_ms = colors.red(execution_end_time-execution_start_time);
+	  	console.log(`Compiled in ${total_execution_in_ms}ms`);
 	}
 };
 

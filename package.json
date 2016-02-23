@@ -12,6 +12,7 @@
     "Gulp"
   ],
   "dependencies": {
+    "colors": "^1.1.2",
     "gulp": "^3.9.1",
     "gulp-less": "^3.0.5",
     "gulp-watch": "^4.3.5",
