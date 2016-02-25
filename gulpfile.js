@@ -26,17 +26,28 @@ Basic = {
 		}
 		return opt;
 	},
+	dateTime: function() {
+		var date,hours,minutes,ampm,strTime;
+
+		date = new Date();
+		hours = date.getHours();
+		minutes = date.getMinutes();
+		ampm = hours >= 12 ? 'pm' : 'am';
+
+		hours = hours % 12;
+		hours = hours ? hours : 12; // the hour '0' should be '12'
+		minutes = minutes < 10 ? '0'+minutes : minutes;
+
+		strTime = hours + ':' + minutes + ' ' + ampm;
+		return date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + "  " + strTime;
+
+	},
 	compile: function(opt) {
 		// fileName can have with directory structure
-		var execution_start_time, execution_end_time,
-			total_execution_in_ms;	// ms indicates microseconds
-		execution_start_time = new Date().getTime();
 	  gulp.src(opt.fileName)
 	  	.pipe(less())
 	  	.pipe(gulp.dest(opt.destination));
-	  	execution_end_time = new Date().getTime();
-	  	total_execution_in_ms = colors.red(execution_end_time-execution_start_time);
-	  	console.log(`Compiled in ${total_execution_in_ms}ms`);
+	  	console.log(this.dateTime());
 	}
 };
 
